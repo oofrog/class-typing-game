@@ -1,0 +1,399 @@
+/* 다크 모드 + 네온 그린 테마 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'Monaco', monospace;
+    background-color: #000000;
+    color: #00ff00;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ===== 게임 캔버스 영역 ===== */
+.game-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 320px; /* 우측 자막 패널 공간 확보 */
+    bottom: 80px; /* 하단 입력창 공간 확보 */
+    background-color: #0a0a0a;
+    border: 2px solid #00ff00;
+    overflow: hidden;
+}
+
+/* ===== 자막 패널 (우측 상단) ===== */
+.caption-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 300px;
+    bottom: 80px; /* 하단 입력창 공간 확보 */
+    background-color: #000000;
+    border-left: 2px solid #00ff00;
+    border-bottom: 2px solid #00ff00;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.caption-panel h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+/* 자막 텍스트 */
+.caption-text {
+    font-size: 13px;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.caption-text .interim {
+    color: #00aa00;
+    opacity: 0.7;
+}
+
+/* ===== 스코어 패널 ===== */
+.score-panel {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 140px;
+    padding: 10px 12px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid #00ff00;
+    border-radius: 6px;
+    box-shadow: 0 0 16px rgba(0, 255, 0, 0.25);
+    text-align: center;
+    z-index: 998;
+}
+
+.score-label {
+    color: #00ff00;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.score-value {
+    color: #00ffff;
+    font-size: 28px;
+    font-weight: bold;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
+}
+
+.score-effect {
+    position: absolute;
+    color: #00ffff;
+    font-size: 16px;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.8);
+    animation: scoreFloat 0.8s ease-out forwards;
+}
+
+@keyframes scoreFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-40px) scale(1.2);
+    }
+}
+
+/* ===== 목숨 패널 ===== */
+.life-panel {
+    position: absolute;
+    top: 12px;
+    right: 320px;
+    width: 120px;
+    padding: 10px 12px;
+    background-color: rgba(0, 0, 0, 0.9);
+    border: 2px solid #ff0000;
+    border-radius: 6px;
+    box-shadow: 0 0 16px rgba(255, 0, 0, 0.25);
+    text-align: center;
+    z-index: 998;
+}
+
+.life-label {
+    color: #ff0000;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    margin-bottom: 4px;
+    opacity: 0.8;
+}
+
+.life-icons {
+    color: #ff4444;
+    font-size: 16px;
+    text-shadow: 0 0 8px rgba(255, 68, 68, 0.6);
+    letter-spacing: 2px;
+}
+
+/* ===== 게임 오버 모달 ===== */
+.game-over-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.modal-content {
+    background-color: #111111;
+    border: 3px solid #ff0000;
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
+    max-width: 400px;
+    width: 90%;
+}
+
+.game-over-title {
+    color: #ff0000;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+    letter-spacing: 0.1em;
+}
+
+.final-score {
+    margin-bottom: 30px;
+}
+
+.final-score-label {
+    color: #00ff00;
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.final-score-value {
+    color: #00ffff;
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 0 0 12px rgba(0, 255, 255, 0.7);
+}
+
+.restart-btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.4);
+}
+
+.restart-btn:hover {
+    background-color: #ff4444;
+    box-shadow: 0 0 30px rgba(255, 68, 68, 0.6);
+    transform: scale(1.05);
+}
+
+.restart-btn:active {
+    transform: scale(0.95);
+}
+
+.caption-text .final {
+    color: #00ff00;
+    opacity: 1;
+    font-weight: bold;
+}
+
+/* ===== 타자 입력창 (화면 최하단 고정) ===== */
+.input-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background-color: #000000;
+    border-top: 3px solid #00ff00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.game-input {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    background-color: #111111;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    font-size: 18px;
+    font-family: 'Courier New', 'Monaco', monospace;
+    outline: none;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.game-input:focus {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    border-color: #00ffff;
+    color: #00ffff;
+}
+
+.game-input::placeholder {
+    color: #00aa00;
+    opacity: 0.7;
+}
+
+/* ===== 디버그 테스트 패널 (좌측 상단) ===== */
+.debug-panel {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 280px;
+    background-color: #0a0a0a;
+    border: 2px solid #ffaa00;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 12px;
+    z-index: 999;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.debug-panel h3 {
+    color: #ffaa00;
+    font-size: 13px;
+    margin-bottom: 8px;
+    text-shadow: 0 0 5px #ffaa00;
+}
+
+.debug-input-group {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 8px;
+}
+
+.debug-input {
+    flex: 1;
+    padding: 6px;
+    background-color: #1a1a1a;
+    border: 1px solid #ffaa00;
+    color: #ffaa00;
+    font-size: 11px;
+    font-family: 'Courier New', monospace;
+    outline: none;
+}
+
+.debug-input:focus {
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.6);
+}
+
+.debug-input::placeholder {
+    color: #aa6600;
+    opacity: 0.6;
+}
+
+.inject-btn {
+    padding: 6px 10px;
+    background-color: #ffaa00;
+    color: #000000;
+    border: none;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.inject-btn:hover {
+    background-color: #ffdd00;
+    box-shadow: 0 0 8px rgba(255, 170, 0, 0.8);
+}
+
+.inject-btn:active {
+    transform: scale(0.95);
+}
+
+.debug-output {
+    background-color: #000000;
+    border: 1px solid #666666;
+    padding: 8px;
+    font-size: 10px;
+    color: #00ff00;
+    line-height: 1.4;
+    max-height: 200px;
+    overflow-y: auto;
+    word-break: break-all;
+}
+
+/* ===== 낙하하는 단어 스타일 ===== */
+.falling-word {
+    position: absolute;
+    padding: 8px 12px;
+    background-color: #1a1a1a;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    font-size: 16px;
+    font-weight: bold;
+    white-space: nowrap;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    user-select: none;
+    text-shadow: 0 0 5px #00ff00;
+}
+
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #00ff00;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #00cccc;
+}
+
+/* 반응형 레이아웃 조정 */
+@media (max-width: 768px) {
+    .game-canvas {
+        right: 0;
+    }
+
+    .caption-panel {
+        display: none;
+    }
+
+    .debug-panel {
+        width: 200px;
+        font-size: 10px;
+    }
+
+    .falling-word {
+        font-size: 14px;
+    }
+}

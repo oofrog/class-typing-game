@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쉿! 교수님 몰래 산성비</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 디버그 테스트 패널 (좌측 상단) -->
+    <div class="debug-panel">
+        <h3>🧪 테스트 패널</h3>
+        <div class="debug-input-group">
+            <input 
+                type="text" 
+                id="debugInput" 
+                placeholder="텍스트 입력..."
+                class="debug-input"
+            />
+            <button id="injectBtn" class="inject-btn">주입</button>
+        </div>
+        <div id="debugOutput" class="debug-output"></div>
+    </div>
+
+    <!-- 게임 캔버스 영역 (중앙) -->
+    <div class="game-canvas" id="gameCanvas">
+        <!-- 단어 낙하 영역 -->
+    </div>
+
+    <!-- 자막 패널 (우측 상단) -->
+    <div class="caption-panel">
+        <h3>📝 자막</h3>
+        <div id="captionText" class="caption-text">
+            <span class="interim">마이크 준비 중...</span>
+        </div>
+    </div>
+
+    <!-- 스코어 패널 -->
+    <div class="score-panel" id="scorePanel">
+        <div class="score-label">SCORE</div>
+        <div id="scoreValue" class="score-value">0</div>
+    </div>
+
+    <!-- 목숨 패널 -->
+    <div class="life-panel" id="lifePanel">
+        <div class="life-label">LIFE</div>
+        <div id="lifeIcons" class="life-icons">❤️❤️❤️❤️❤️</div>
+    </div>
+
+    <!-- 게임 오버 모달 -->
+    <div class="game-over-modal" id="gameOverModal">
+        <div class="modal-content">
+            <h2 class="game-over-title">GAME OVER</h2>
+            <div class="final-score">
+                <span class="final-score-label">최종 점수:</span>
+                <span id="finalScoreValue" class="final-score-value">0</span>
+            </div>
+            <button id="restartBtn" class="restart-btn">다시 시작</button>
+        </div>
+    </div>
+
+    <!-- 타자 입력창 (화면 최하단 고정) -->
+    <div class="input-container">
+        <input 
+            type="text" 
+            id="gameInput" 
+            placeholder="단어를 입력하세요..."
+            class="game-input"
+            autocomplete="off"
+        />
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
