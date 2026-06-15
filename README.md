@@ -128,5 +128,4 @@ class-typing-game/
 
 ## 만든 사람
 
-**강준우** · ICT 융합학부
-학회 세미나 발표 프로젝트 (AI · Vibe Coding · Game)
+**강준우** · 한양대학교 ERICA 소프트웨어융학대학 학회 HY-End 세미나 발표 (AI · Vibe Coding · Game)
